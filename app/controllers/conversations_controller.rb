@@ -1,8 +1,5 @@
 class ConversationsController < ApplicationController
-  # Loads:
-  # @conversations = all conversations
-  # @conversation = current conversation when applicable
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :null_session, only: [:create]
   before_action :load_entities
 
   def index
