@@ -1,22 +1,31 @@
 class MessagesController < ApplicationController
-  protect_from_forgery with: :null_session
-  before_action :load_entities
+  protect_from_forgery with: :null_session, except: %i[index]
+  before_action :load_entities, except: %i[index]
   def new
     @message = Message.new
+  end
+
+  def index
+    messages = Message.where(conversation_id: params['conversation-id'])
+    render json: messages
   end
 
   def create
     @message = Message.create user_id: @user.id,
                               conversation: @conversation,
                               message: message_params[:text]
-
-    ConversationChannel.broadcast_to @conversation, @message
+    if @message.save
+      ConversationChannel.broadcast_to @conversation, @message
+      head :ok
+    else
+      head :ok
+    end
   end
 
   protected
 
   def load_entities
-    @conversation = Conversation.find_or_create_by(id: message_params[:conversation_id])
+    @conversation = Conversation.find message_params[:conversation_id]
     @user = User.find_or_create_by(id: message_params[:user_id])
   end
 
