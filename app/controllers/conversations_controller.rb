@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  protect_from_forgery with: :null_session, only: [:create]
+  protect_from_forgery with: :null_session
   before_action :load_entities
 
   def index
@@ -20,10 +20,10 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new permitted_parameters
 
     if @conversation.save
-      render json: { message: "Conversation #{@conversation.name} was created successfully" }
+      render json: @conversation
 
     else
-      render :new
+      render json: { error: @conversation.errors }
     end
   end
 
@@ -31,7 +31,7 @@ class ConversationsController < ApplicationController
 
   def update
     if @conversation.update_attributes(permitted_parameters)
-      render json: { message: "Conversation #{@conversation.name} was updated successfully" }
+      render json: @conversation
     else
       render :new
     end
@@ -45,6 +45,7 @@ class ConversationsController < ApplicationController
   end
 
   def permitted_parameters
+    p params, 'PARAMS'
     params.require(:conversation).permit(:name)
   end
 end

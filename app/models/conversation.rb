@@ -3,8 +3,9 @@ class Conversation < ApplicationRecord
   validates_uniqueness_of :name, case_sensitive: true
   validates_length_of :name, maximum: 20
   has_many :messages, dependent: :destroy
+  attribute :status, :string, default: -> { ACTIVE }
 
   # Built-in statuses
-  BUILTIN_NEW = 1
-  BUILTIN_ARCHIVED = 2
+  ACTIVE = 1
+  ARCHIVED = 2
 end
