@@ -21,4 +21,7 @@ Rails.application.routes.draw do
   get '/user/:id', to: 'users#show'
   patch '/user/:id', to: 'users#update'
   delete '/user/:id', to: 'users#destroy'
+
+  post '/auth/login', to: 'authentication#create'
+  get '/*a', to: 'application#not_found'
 end

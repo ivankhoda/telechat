@@ -31,6 +31,10 @@ gem "jbuilder"
 gem "redis", "~> 4.0"
 
 gem 'rack-cors'
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+# Add figaro for managing env
+gem "figaro"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
