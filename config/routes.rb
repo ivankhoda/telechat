@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   post '/auth/login', to: 'authentication#create'
   get '/*a', to: 'application#not_found'
+
+  telegram_webhook TelegramWebhooksController
 end

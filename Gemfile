@@ -29,12 +29,17 @@ gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
+gem 'redis-store'
+gem 'redis-rails'
 
 gem 'rack-cors'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 # Add figaro for managing env
 gem "figaro"
+# Add telegram bot
+gem 'telegram-bot'
+
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
