@@ -3,11 +3,11 @@ class User < ApplicationRecord
 
   has_many :messages, dependent: :destroy
 
-  before_save :downcase_email if email
+  # before_save :downcase_email if :email
 
   validates :username, uniqueness: true
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true if email
+  # validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true if :email
 
   private
 

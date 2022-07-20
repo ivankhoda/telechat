@@ -6,11 +6,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   # callback_query, etc.
   # Define method with the same name to handle this type of update.
   def message(_message)
-    # @message = Message.create user_id: telegram_id,
-    #                           conversation: @conversation,
-    #                           message: msg
-    # ConversationChannel.broadcast_to @conversation, @message if @message.save
-    p @user, 'USER'
+    @message = Message.create user_id: @user.id,
+                              conversation_id: @conversation.id,
+                              message: msg
+    ConversationChannel.broadcast_to @conversation, @message if @message.save
   end
 
   private
@@ -29,9 +28,13 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def load_entities
     @user = User.find_by(id: telegram_id)
-    @user ||= User.create!(name:, surname:, username:) unless @user
-    # @user ||= User.create({ name:, surname:, username: }) unless @user
-    # @conversation = Conversation.find_or_create_by(id: chat_id)
+    @user ||= User.create!(id: telegram_id, name:, surname:, username:) unless @user
+
+    @conversation = Conversation.find_by(id: chat_id)
+    unless @conversation
+      @conversation ||= Conversation.create!(id: chat_id,
+                                             name: "#{chat_id}")
+    end
   end
 
   def telegram_id
