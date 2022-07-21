@@ -16,9 +16,9 @@ class MessagesController < ApplicationController
                               message: message_params[:text]
     if @message.save
       ConversationChannel.broadcast_to @conversation, @message
-      head :ok
+      Telegram.bot.send_message(chat_id: @conversation.id, text: @message.message)
     else
-      head :ok
+      p 'head :ok'
     end
   end
 
