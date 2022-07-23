@@ -37,12 +37,22 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def destroy
+    if @conversation.delete
+      render json: { message: 'Success' }
+    else
+      render json: { message: @conversation.errors }
+    end
+  end
+
   protected
 
   def load_entities
     @conversations = Conversation.all
     @conversation = Conversation.find(params[:id]) if params[:id]
   end
+
+  private
 
   def permitted_parameters
     p params, 'PARAMS'
