@@ -22,6 +22,15 @@ class MessagesController < ApplicationController
     end
   end
 
+  def delete_all
+    @messages = Message.where(conversation_id: params['conversation-id'])
+    if @messages.delete
+      p 'head :ok'
+    else
+      p 'head :ok'
+    end
+  end
+
   protected
 
   def load_entities
