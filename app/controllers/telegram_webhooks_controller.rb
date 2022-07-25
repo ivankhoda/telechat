@@ -28,11 +28,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def load_entities
     @user = User.find_by(id: telegram_id)
-    @user ||= User.create!(id: telegram_id, name:, surname:, username:) unless @user
+    @user ||= User.create!(name:, surname:, username:) unless @user
 
-    @conversation = Conversation.find_by(id: chat_id)
+    @conversation = Conversation.find_by(outer_chat_id: chat_id)
     unless @conversation
-      @conversation ||= Conversation.create!(id: chat_id,
+      @conversation ||= Conversation.create!(outer_chat_id: chat_id,
                                              name: "#{chat_id}")
     end
   end
