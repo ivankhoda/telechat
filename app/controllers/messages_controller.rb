@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
     end
   end
 
-  def delete_all
+  def destroy
     @messages = Message.where(conversation_id: params['conversation-id'])
     if @messages.delete
       p 'head :ok'

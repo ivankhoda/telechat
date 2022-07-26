@@ -34,6 +34,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     unless @conversation
       @conversation ||= Conversation.create!(outer_chat_id: chat_id,
                                              name: "#{chat_id}")
+
     end
   end
 

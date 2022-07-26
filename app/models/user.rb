@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password validations: false
 
-  has_many :messages, dependent: :delete_all
+  has_many :messages, dependent: :destroy
 
   # before_save :downcase_email if :email
 
