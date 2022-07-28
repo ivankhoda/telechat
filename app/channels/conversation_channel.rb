@@ -1,5 +1,6 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
+    p messages, 'MWSSAGEED'
     ActionCable.server.broadcast('messages', { messages: Message.where(conversation: find_conversation) })
 
     if find_conversation

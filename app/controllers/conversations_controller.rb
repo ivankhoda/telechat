@@ -20,6 +20,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.new permitted_parameters
 
     if @conversation.save
+
       render json: @conversation
 
     else
@@ -55,7 +56,6 @@ class ConversationsController < ApplicationController
   private
 
   def permitted_parameters
-    p params, 'PARAMS'
     params.require(:conversation).permit(:name)
   end
 end
