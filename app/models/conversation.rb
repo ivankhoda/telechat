@@ -1,7 +1,6 @@
 class Conversation < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name, case_sensitive: true
-  # validates_length_of :name, maximum: 30
   has_many :messages, -> { order(created_at: :desc) }, dependent: :delete_all
   attribute :status, :string, default: -> { ACTIVE }
 
